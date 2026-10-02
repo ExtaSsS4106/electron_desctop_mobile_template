@@ -1,5 +1,8 @@
 # basic_template_mobile_desctop: установка и настройка
 
+[![docs](https://img.shields.io/badge/docs-online-brightgreen)](https://extasss4106.github.io/electron_desctop_mobile_template/)
+[![GitHub](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/ExtaSsS4106/electron_desctop_mobile_template)
+
 Практическая инструкция для запуска проекта на компьютере, сборки Electron-приложения и Android APK, а также подключения Django API.
 
 ## 1. Как устроен проект
