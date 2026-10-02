@@ -19,6 +19,7 @@
       --amber-soft: #fff2d8;
       --code: #182522;
       --code-ink: #e6f0eb;
+      --radius: 6px;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.65;
       color: var(--ink);
@@ -30,6 +31,26 @@
     .topbar { padding: 28px max(22px, calc((100vw - 1180px) / 2)); background: #193d32; color: #fff; }
     .brand { margin: 0; font-size: 18px; font-weight: 700; }
     .subtitle { margin: 5px 0 0; color: #c8ded4; font-size: 14px; }
+    .topbar .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .topbar .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: var(--radius);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.2;
+      transition: background-color .15s ease, border-color .15s ease;
+    }
+    .topbar .links a:hover {
+      background: rgba(255,255,255,.16);
+      border-color: rgba(255,255,255,.9);
+    }
+    .topbar .links svg { width: 20px; height: 20px; flex-shrink: 0; fill: currentColor; }
     .layout { width: min(1180px, calc(100% - 40px)); margin: 30px auto 70px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; align-items: start; }
     aside { position: sticky; top: 20px; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
     aside strong { display: block; margin-bottom: 12px; font-size: 13px; text-transform: uppercase; color: var(--muted); }
@@ -67,6 +88,7 @@
       :root { background: #fff; }
       .topbar { padding: 12px 0; background: #fff; color: var(--ink); border-bottom: 2px solid var(--green); }
       .subtitle { color: var(--muted); }
+      .topbar .links { display: none; }
       .layout { display: block; width: 100%; margin: 16px 0; }
       aside { display: none; }
       main { padding: 0; border: 0; }
@@ -79,6 +101,13 @@
   <header class="topbar">
     <p class="brand">basic_template_mobile_desctop / Документация</p>
     <p class="subtitle">Установка, настройка API и сборка desktop и Android</p>
+    <div class="links">
+      <a href="https://github.com/ExtaSsS4106/electron_desctop_mobile_template" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Открыть репозиторий
+      </a>
+      <a href="https://extasss4106.github.io/electron_desctop_mobile_template/">Страница документации</a>
+    </div>
   </header>
   <div class="layout">
     <aside>
@@ -128,8 +157,10 @@
 
       <section id="install">
         <h2>3. Установка зависимостей</h2>
-        <p>Откройте терминал в корне проекта — рядом с <code>package.json</code> — и выполните:</p>
-        <pre><code>npm install</code></pre>
+        <p>Склонируйте репозиторий и откройте терминал в корне проекта — рядом с <code>package.json</code>:</p>
+        <pre><code>git clone https://github.com/ExtaSsS4106/electron_desctop_mobile_template.git
+cd electron_desctop_mobile_template
+npm install</code></pre>
         <p>Если менялись зависимости или версии Node, повторите установку после проверки совместимости проекта.</p>
       </section>
 
@@ -199,7 +230,7 @@ cd android
 ./gradlew assembleDebug</code></pre>
         <p>Debug APK появится здесь:</p>
         <pre><code>android/app/build/outputs/apk/debug/app-debug.apk</code></pre>
-        <p>Установить на подключённый телефон:</p>
+        <p>Установить на подключённый телефон (из корня проекта):</p>
         <pre><code>adb install -r android/app/build/outputs/apk/debug/app-debug.apk</code></pre>
         <p>Или открыть Android Studio:</p>
         <pre><code>npx cap open android</code></pre>
@@ -231,7 +262,7 @@ cd android
         <h3>Android не соединяется с API</h3>
         <ol>
           <li>Проверьте LAN IP в <code>www/index.html</code>, а затем в <code>dist/index.html</code>.</li>
-          <li>Проверьте, что phone и backend доступны в одной сети и Django слушает <code>0.0.0.0:8080</code>.</li>
+          <li>Проверьте, что телефон и backend доступны в одной сети и Django слушает <code>0.0.0.0:8080</code>.</li>
           <li>Откройте ping endpoint непосредственно на телефоне.</li>
           <li>Проверьте Android WebView CORS origin и заголовки ответа.</li>
           <li>Выполните build, cap sync, Gradle build и установите свежий APK.</li>
@@ -242,6 +273,7 @@ cd android
 
       <footer>
         basic_template_mobile_desctop · локальная разработка и Android build · Подробная версия также находится в <code>DOCX/README.md</code>.
+        · <a href="https://github.com/ExtaSsS4106/electron_desctop_mobile_template">GitHub</a>
       </footer>
     </main>
   </div>
