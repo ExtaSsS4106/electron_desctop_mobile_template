@@ -178,6 +178,20 @@ electron --ozone-platform=x11 .</code></pre>
         <pre><code>npm run dev</code></pre>
         <p>Откройте URL, который напечатает Vite, обычно <code>http://127.0.0.1:4173</code>. Эта команда запускает web-сервер, не Electron.</p>
         <div class="notice"><b>Entry point:</b> <code>package.json</code> указывает на <code>electron/main.js</code>. Не запускайте корневой <code>main.js</code> вместо <code>electron .</code>.</div>
+        <div class="notice">
+          <b>Важно:</b> если на Linux Electron падает с такой ошибкой:
+          <pre><code>[69972:1002/104513.329124:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166]
+        The SUID sandbox helper binary was found, but is not configured correctly.
+        Rather than run without sandboxing I'm aborting now. You need to make sure that
+        /home/user/.npm-global/lib/node_modules/electron/dist/chrome-sandbox
+        is owned by root and has mode 4755.
+        /home/user/.npm-global/lib/node_modules/electron/dist/electron exited with signal SIGTRAP</code></pre>
+          выставьте файлу <code>chrome-sandbox</code> владельца root и права <code>4755</code>:
+          <pre><code>sudo chown root:root /home/user/.npm-global/lib/node_modules/electron/dist/chrome-sandbox
+sudo chmod 4755 /home/user/.npm-global/lib/node_modules/electron/dist/chrome-sandbox</code></pre>
+        </div>
+
+        
       </section>
 
       <section id="api">
